@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=oxine
+GenericName=OSD Xine
+Comment=On Screen Display media application
+Exec=oxine
+Icon=oxine
+Terminal=false
+Type=Application
+Categories=AudioVideo;

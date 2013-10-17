@@ -1,0 +1,11 @@
+--- oxine-0.7.1/src/vdr.c.org	2010-01-22 11:47:11.851715389 +0100
++++ oxine-0.7.1/src/vdr.c	2010-01-22 11:47:40.872682578 +0100
+@@ -23,6 +23,8 @@
+  */
+ #include "config.h"
+ 
++#define _GNU_SOURCE
++
+ #include <errno.h>
+ #include <netdb.h>
+ #include <stdio.h>
