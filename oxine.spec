@@ -1,7 +1,7 @@
 Summary: Lightweight, purely OSD based xine frontend
 Name: oxine
 Version: 0.7.1
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://oxine.sourceforge.net/
@@ -95,6 +95,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 
 
 %changelog
+* Wed Oct 23 2013 Xavier Bachelot <xavier@bachelot.org> - 0.7.1-20
+- Rebuild for xine-lib 1.2.
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
