@@ -1,7 +1,7 @@
 Summary: Lightweight, purely OSD based xine frontend
 Name: oxine
 Version: 0.7.1
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://oxine.sourceforge.net/
@@ -95,6 +95,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 
 
 %changelog
+* Tue Mar 25 2014 Xavier Bachelot <xavier@bachelot.org> - 0.7.1-21
+- Rebuild for libcdio 0.92.
+ 
 * Wed Oct 23 2013 Xavier Bachelot <xavier@bachelot.org> - 0.7.1-20
 - Rebuild for xine-lib 1.2.
 
