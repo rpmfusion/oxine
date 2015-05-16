@@ -1,7 +1,7 @@
 Summary: Lightweight, purely OSD based xine frontend
 Name: oxine
 Version: 0.7.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://oxine.sourceforge.net/
@@ -9,7 +9,7 @@ Source0: http://downloads.sf.net/oxine/oxine-%{version}.tar.gz
 Source1: oxine.desktop
 Source2: oxine.png
 Patch0: oxine-strptime.patch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+Patch1: oxine-0.7.1-fix-inline-use.patch
 # We need xineplug_decode_image.so for the backgrounds
 Requires: xine-lib-extras
 BuildRequires: libX11-devel, libXtst-devel, libXinerama-devel
@@ -39,6 +39,7 @@ entertainment systems or kiosk systems.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 # Convert file to utf-8 (still as of 0.7.1)
 for file in AUTHORS; do
     iconv -f iso8859-1 -t utf-8 -o tmp ${file}
@@ -57,35 +58,31 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
+%make_install
 %find_lang %{name}
 
 # Desktop file
-desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications \
-    %{SOURCE1}
-
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 # This is the image we'll use for the desktop icon. Could be improved.
 # (based on data/skins/oxinetic/backgrounds/icon-cdrom.png)
 install -D -p -m 0644 %{SOURCE2} \
     %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/oxine.png
 
 
-%clean
-rm -rf %{buildroot}
-
-
 %post
-touch --no-create %{_datadir}/icons/hicolor || :
-%{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor || :
-%{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+if [ $1 -eq 0 ] ; then
+    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING ChangeLog NEWS README TODO
 %doc doc/keymapping.pdf doc/README.html
 %{_bindir}/oxine
@@ -95,6 +92,10 @@ touch --no-create %{_datadir}/icons/hicolor || :
 
 
 %changelog
+* Sat May 16 2015 Hans de Goede <j.w.r.degoede@gmail.com> - 0.7.1-23
+- Fix FTBFS (rf#3628)
+- Modernize spec
+
 * Sun Aug 03 2014 Sérgio Basto <sergio@serjux.com> - 0.7.1-22
 - Rebuilt for new ImageMagick.
 
