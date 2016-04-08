@@ -1,7 +1,7 @@
 Summary: Lightweight, purely OSD based xine frontend
 Name: oxine
 Version: 0.7.1
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://oxine.sourceforge.net/
@@ -18,7 +18,6 @@ BuildRequires: xine-lib-devel >= 1.0.1
 BuildRequires: curl-devel
 BuildRequires: ImageMagick-devel
 BuildRequires: lirc-devel
-BuildRequires: mdsplib-devel
 BuildRequires: desktop-file-utils
 BuildRequires: dbus-glib-devel
 BuildRequires: libexif-devel
@@ -92,6 +91,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Fri Apr 08 2016 Adrian Reber <adrian@lisas.de> - 0.7.1-24
+- remove BR: mdsplib-devel; package retired in F24
+
 * Sat May 16 2015 Hans de Goede <j.w.r.degoede@gmail.com> - 0.7.1-23
 - Fix FTBFS (rf#3628)
 - Modernize spec
